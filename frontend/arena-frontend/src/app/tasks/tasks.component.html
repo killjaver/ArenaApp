@@ -1,0 +1,41 @@
+<h1 class="text-3xl font-bold mb-6">Завдання</h1>
+
+<!-- Форма додавання завдань -->
+<form (ngSubmit)="addTask()" class="flex gap-4 mb-6">
+  <input [(ngModel)]="newTaskTitle"
+         name="taskTitle"
+         type="text"
+         placeholder="Нове завдання..."
+         class="flex-1 p-2 border rounded"
+         required>
+  <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+    Додати
+  </button>
+</form>
+
+<!-- Список завдань -->
+<div class="space-y-4">
+  <div *ngFor="let task of tasks; let i = index"
+       class="p-4 bg-white rounded-lg shadow hover:shadow-md transition cursor-pointer">
+
+    <div class="flex justify-between items-center">
+      <!-- Назва завдання та статус -->
+      <div (click)="toggleStatus(task)" class="flex-1">
+        <span class="font-semibold">{{ task.title }}</span>
+        <span [ngClass]="{
+            'text-green-600': task.status === 'Активне',
+            'text-gray-500': task.status === 'Виконане'
+          }" class="text-sm ml-2">
+          {{ task.status }}
+        </span>
+      </div>
+
+      <!-- Кнопка видалення -->
+      <button (click)="deleteTask(i)"
+              class="ml-4 text-red-500 hover:text-red-700 text-lg">
+        🗑️
+      </button>
+    </div>
+
+  </div>
+</div>
