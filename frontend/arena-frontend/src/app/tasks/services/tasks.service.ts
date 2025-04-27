@@ -1,25 +1,27 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Task} from '../../models/task.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
-  private apiUrl = 'http://localhost:8080/api/tasks'; // змінити на свій бекенд URL
+  private apiUrl = 'http://localhost:8080/api/tasks'; // Підлаштувати під бекенд
 
-  constructor(private http: HttpClient) {}
-
-  getTasks(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  constructor(private http: HttpClient) {
   }
 
-  createTask(task: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, task);
+  getTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(this.apiUrl);
   }
 
-  updateTask(task: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${task.id}`, task);
+  createTask(task: Partial<Task>): Observable<Task> {
+    return this.http.post<Task>(this.apiUrl, task);
+  }
+
+  updateTask(task: Task): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${task.id}`, task);
   }
 
   deleteTask(id: number): Observable<void> {
