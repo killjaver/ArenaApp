@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TasksService } from '../services/tasks.service';
-import { Task } from '../../models/task.model';
+import { TasksService } from './services/tasks.service';
+import { Task } from '../models/task.model';
 
 @Component({
   selector: 'app-tasks',
+  standalone: false,
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss']
 })
